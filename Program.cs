@@ -12,7 +12,7 @@ class Program
 
         // convert CSV to .Net Datatable
         DataTable dt = new DataTable();
-        using (StreamReader sr = new StreamReader(@"C:\Jinesh\Practice\CSVtoParquet\CSVtoParquet\demo.csv"))
+        using (StreamReader sr = new StreamReader(@"---CSV FILE PATH----"))
         {
             string[] headers = sr.ReadLine().Split(',');
             foreach (string header in headers)
@@ -32,7 +32,7 @@ class Program
         }
 
         //write datatble to PARQUET file format
-        using (var w = new ChoParquetWriter("C://Jinesh/Practice/CSVtoParquet/CSVtoParquet/hello2.parquet"))
+        using (var w = new ChoParquetWriter("--- OUTPUT file path MUST be in .parquet format like hello.parquet) ---"))
         {
             w.Write(dt);
         }
