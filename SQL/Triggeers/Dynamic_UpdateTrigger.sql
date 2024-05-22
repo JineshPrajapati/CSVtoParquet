@@ -12,7 +12,7 @@ BEGIN
     SET NOCOUNT ON;
 
       DECLARE @Id INT, @ModifiedDate DATETIME;
-  		DECLARE @OldValue varchar(40), @NewValue varchar(40) ;
+      DECLARE @OldValue varchar(40), @NewValue varchar(40) ;
       DECLARE @ColumnName varchar(100),@identityColumn varchar(20);
       DECLARE @SQL NVARCHAR(max), @ParamDefinition NVARCHAR(max);
 	
@@ -41,9 +41,9 @@ BEGIN
       
         -- Construct the dynamic SQL to check for update and log the change
         SET @SQL = N'  
-                		INSERT INTO Employee_Audit_log (Id, ModifidDate, Field, oldValue, newValue)
+                	INSERT INTO Employee_Audit_log (Id, ModifidDate, Field, oldValue, newValue)
                         SELECT distinct i.ID,GetDate(),'''+QUOTENAME(@ColumnName)+''',d.' + QUOTENAME(@ColumnName) + ',i.' + QUOTENAME(@ColumnName) + ' FROM #tempInserted i
-                		inner join #tempDeleted d on d.'+QUOTENAME(@ColumnName)+'<>i.'+QUOTENAME(@ColumnName)+' AND d.'+QUOTENAME(@identityColumn)+'=i.'+QUOTENAME(@identityColumn)+';
+                	inner join #tempDeleted d on d.'+QUOTENAME(@ColumnName)+'<>i.'+QUOTENAME(@ColumnName)+' AND d.'+QUOTENAME(@identityColumn)+'=i.'+QUOTENAME(@identityColumn)+';
                    ';
         SET @ParamDefinition = N'@ModifiedDate DATETIME, @ColumnName varchar(100), @OldValue varchar(40), @NewValue varchar(40)';
 
