@@ -4,7 +4,7 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-ALTER TRIGGER [dbo].[trgEmployeeDynamicAudit]
+Create TRIGGER [dbo].[trgEmployeeDynamicAudit]
 ON [dbo].[TABLENAME] -- update table name with your table name
 AFTER UPDATE
 AS
