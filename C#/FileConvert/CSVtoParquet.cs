@@ -22,7 +22,7 @@ class Program
         
         //convert CSV to.Net Datatable
         DataTable dt = new DataTable();
-        using (StreamReader sr = new StreamReader(@"C:\Jinesh\Practice\CSVtoParquet\CSVtoParquet\LVPPF New 05-14-2024 05_55 AM.csv"))
+        using (StreamReader sr = new StreamReader(@"CSV FILE PATH"))
         {
             string[] headers = sr.ReadLine().Split(',');
             foreach (string header in headers)
@@ -42,7 +42,7 @@ class Program
         }
         //Write DATATBLE to PARQUET file format 3 methods
         //  Method 1 : direct write data from datatable
-        using (var w = new ChoParquetWriter("C://Jinesh/Practice/CSVtoParquet/CSVtoParquet/hello2.parquet"))
+        using (var w = new ChoParquetWriter("OUTPUT file path"))
         {
             w.Write(dt);
         }
@@ -55,7 +55,8 @@ class Program
         //Parallel.For(0, totalChunks, chunk =>
         //{
         //    var chunkRows = dt.AsEnumerable().Skip(chunk * chunkSize).Take(chunkSize).CopyToDataTable();
-        //    using (var w = new ChoParquetWriter($"C://Jinesh/Practice/CSVtoParquet/CSVtoParquet/hello2_{chunk}.parquet"))
+        /// **** here you have to mention folder location before "/hello2_{chunk}.parquet"
+        //    using (var w = new ChoParquetWriter($"OUTPUT file path/hello2_{chunk}.parquet"))    
         //    {
         //        w.Write(chunkRows);
         //    }
@@ -64,7 +65,7 @@ class Program
         // Method 3 : write data in single file with chunks
 
         //int chunkSize = 1000;
-        //using (var w = new ChoParquetWriter("C://Jinesh/Practice/CSVtoParquet/CSVtoParquet/hello6.parquet"))
+        //using (var w = new ChoParquetWriter("OUTPUT file path"))
         //{
         //    Parallel.For(0, (int)Math.Ceiling((double)dt.Rows.Count / chunkSize), chunk =>
         //    {
@@ -148,9 +149,9 @@ namespace csvtoparquet
         public static async Task Main(string[] args)
         {
             Console.WriteLine("Start Time: " + DateTime.Now);
-            string filePath_out = "C://Jinesh/Practice/CSVtoParquet/CSVtoParquet/hello8.parquet";
+            string filePath_out = "OUTPUT file path";
             int batch_size = 10000;
-            CustomFileReader reader = new CustomFileReader("C:\\Jinesh\\Practice\\CSVtoParquet\\CSVtoParquet\\LVPPF New 05-14-2024 05_55 AM.csv", batch_size);
+            CustomFileReader reader = new CustomFileReader("CSV FILE PATH", batch_size);
 
             using (var writer = new ChoParquetWriter(filePath_out, new ChoParquetRecordConfiguration { CompressionMethod = Parquet.CompressionMethod.Snappy })
                      .Configure(c => c.FieldValueTrimOption = ChoFieldValueTrimOption.None)
